@@ -1,0 +1,943 @@
+<title>Ali's Homecoming Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: left menu of tabs, one reading column, Ali's bamboo-and-cream world with a rose accent for the moments that matter */
+:root{
+  --bg:#F3F1E6; --paper:#FFFDF6; --ink:#1E261C; --soft:#55604E;
+  --bamboo:#2F4A2B; --leaf:#4C6A38; --rose:#9C3A3A; --sand:#EADFC2; --line:#D8D5C2; --chip:#ECE9D8; --wave-off:#D3D0BC;
+  --display:"Crimson Pro",Georgia,"Times New Roman",serif;
+  --body:"Karla",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#131912; --paper:#1B2319; --ink:#ECE9DA; --soft:#ADB49E;
+    --bamboo:#A9C58D; --leaf:#C2D6A4; --rose:#E3918A; --sand:#33331F; --line:#2D3727; --chip:#212A1E; --wave-off:#2F3A2A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131912; --paper:#1B2319; --ink:#ECE9DA; --soft:#ADB49E;
+  --bamboo:#A9C58D; --leaf:#C2D6A4; --rose:#E3918A; --sand:#33331F; --line:#2D3727; --chip:#212A1E; --wave-off:#2F3A2A;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.62;-webkit-text-size-adjust:100%}
+h1,h2,h3,h4{font-family:var(--display);font-weight:500;line-height:1.15;margin:0;text-wrap:balance}
+p{margin:0 0 .9em}
+a{color:var(--bamboo)}
+b,strong{font-weight:700}
+.wrap{max-width:780px;margin:0 auto;padding-inline:20px}
+
+/* Side menu */
+.side{position:fixed;top:0;bottom:0;left:0;width:256px;z-index:30;background:var(--paper);border-right:1px solid var(--line);padding:calc(env(safe-area-inset-top,0px) + 26px) 14px calc(env(safe-area-inset-bottom,0px) + 20px);overflow-y:auto;display:flex;flex-direction:column;gap:3px}
+.side .brand{font-family:var(--display);font-size:25px;color:var(--bamboo);padding:0 10px 2px}
+.side .sub{font-size:13px;color:var(--soft);padding:0 10px 18px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.tab{display:block;width:100%;text-align:left;border:0;background:none;color:var(--ink);border-radius:10px;padding:10px 12px;font:500 16px var(--body);cursor:pointer}
+.tab:hover{background:var(--chip)}
+.tab[aria-selected="true"]{background:var(--bamboo);color:var(--paper);font-weight:600}
+.content{margin-left:256px}
+.topbar,.scrim{display:none}
+@media (max-width:899px){
+  .content{margin-left:0}
+  .side{transform:translateX(-105%);transition:transform .25s ease;box-shadow:0 0 40px rgba(0,0,0,.2);width:min(290px,82vw)}
+  body.menu-open .side{transform:none}
+  .scrim{position:fixed;inset:0;z-index:25;background:rgba(10,16,9,.45)}
+  body.menu-open .scrim{display:block}
+  body.menu-open{overflow:hidden}
+  .topbar{display:flex;align-items:center;gap:12px;position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px}
+  .menubtn{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:10px;padding:8px 13px;font:600 15px var(--body);cursor:pointer}
+  .menubtn svg{width:18px;height:18px}
+  .topbar .current{font-family:var(--display);font-size:19px;color:var(--bamboo);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .closebtn{align-self:flex-end;border:0;background:none;color:var(--soft);font-size:28px;line-height:1;padding:0 8px 6px;cursor:pointer}
+}
+@media (min-width:900px){.closebtn{display:none}}
+.tab:focus-visible,.menubtn:focus-visible,.stepper button:focus-visible,summary:focus-visible,input:focus-visible,.theme:focus-visible,.btn:focus-visible,.copy:focus-visible{outline:3px solid var(--rose);outline-offset:2px}
+
+/* Hero */
+header.hero{padding-block:46px 30px;border-bottom:1px solid var(--line)}
+.for{color:var(--soft);font-size:15px;margin-bottom:10px}
+.hero h1{font-size:clamp(38px,8vw,60px);color:var(--bamboo);letter-spacing:-.005em}
+.hero h1 em{font-style:italic;color:var(--rose)}
+.hero .lede{font-size:19px;max-width:36em;margin-top:14px}
+.chart{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 4px}
+.chart span{font-size:14px;padding:5px 11px;border-radius:999px;background:var(--chip);border:1px solid var(--line)}
+
+/* Founding hundred tracker */
+.gate{margin-top:26px;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px 20px;display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+.gate svg{width:100%;height:auto;display:block}
+.gate h2{font-size:27px;margin-bottom:4px}
+.count{font-family:var(--display);font-size:46px;color:var(--bamboo);line-height:1}
+.count small{font-family:var(--body);font-size:17px;color:var(--soft)}
+.gate label{display:block;font-size:14px;color:var(--soft);margin:12px 0 6px}
+.stepper{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.stepper button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--chip);color:var(--ink);font-size:22px;cursor:pointer}
+.stepper input{width:90px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-size:18px;text-align:center;font-family:inherit}
+.status{margin-top:12px;font-size:15px;color:var(--soft)}
+.status b{color:var(--ink)}
+.bar{transition:fill .3s ease}
+
+main{padding-block:30px 70px}
+.panel{display:none}
+.panel.on{display:block}
+.panel > h2{scroll-margin-top:calc(var(--navh,0px) + 24px);font-size:34px;color:var(--bamboo);margin-bottom:10px}
+.panel > .intro{color:var(--soft);font-size:17px;margin-bottom:24px}
+h3{font-size:24px;margin:32px 0 10px}
+h4{font-size:20px}
+.rule{border-left:3px solid var(--rose);padding:4px 0 4px 16px;margin:22px 0;font-size:18px}
+.note{background:var(--sand);border-radius:14px;padding:16px 18px;margin:20px 0;font-size:16px}
+.note p:last-child{margin:0}
+ul.plain{padding-left:20px;margin:0 0 1em}
+ul.plain li{margin-bottom:.55em}
+.hd{border:1px solid var(--line);border-left:4px solid var(--bamboo);border-radius:14px;padding:16px 18px;margin:20px 0;background:var(--paper)}
+.hd .lens{display:block;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--leaf);margin-bottom:6px}
+.hd p:last-child,.hd ul:last-child{margin-bottom:0}
+.why{display:block;font-size:14px;color:var(--soft);margin-top:4px;line-height:1.5}
+.why::before{content:"Your design: ";font-weight:700;color:var(--leaf)}
+
+/* Phases + checks */
+.phase{background:var(--paper);border:1px solid var(--line);border-radius:18px;margin:0 0 18px;overflow:hidden}
+.phase summary{list-style:none;cursor:pointer;padding:18px 20px;display:flex;justify-content:space-between;align-items:baseline;gap:14px}
+.phase summary::-webkit-details-marker{display:none}
+.phase .when{font-size:13px;color:var(--rose);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.phase .ttl{font-family:var(--display);font-size:25px;display:block;margin-top:2px}
+.phase .prog{font-size:13px;color:var(--soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+.phase .body{padding:0 20px 20px}
+.goal{font-size:16px;color:var(--soft);margin-bottom:14px}
+.target{margin-top:14px;font-size:15px;padding:12px 14px;border-radius:12px;background:var(--chip)}
+.check{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}
+.phase .check:first-of-type,.checks .check:first-child{border-top:0}
+.check input{appearance:none;-webkit-appearance:none;flex:0 0 22px;width:22px;height:22px;margin-top:3px;border:2px solid var(--bamboo);border-radius:6px;cursor:pointer;background:var(--paper);position:relative}
+.check input:checked{background:var(--bamboo)}
+.check input:checked::after{content:"";position:absolute;left:6px;top:2px;width:6px;height:11px;border:solid var(--paper);border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.who{display:inline-block;font-size:12px;font-weight:700;color:var(--bamboo);background:var(--chip);border:1px solid var(--line);border-radius:6px;padding:0 7px;margin-left:6px;vertical-align:1px}
+.check.done .txt{color:var(--soft);text-decoration:line-through;text-decoration-color:var(--line)}
+
+/* Tiers */
+.tiers{display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:640px){.tiers.two{grid-template-columns:1fr 1fr}}
+.tier{border-radius:18px;padding:20px;border:1px solid var(--line);background:var(--paper);min-width:0}
+.tier.now{border:2px solid var(--bamboo)}
+.tier h3{margin:0 0 4px;font-size:26px}
+.state{font-size:13px;font-weight:700;color:var(--rose);letter-spacing:.03em;margin-bottom:10px;text-transform:uppercase}
+.price{font-family:var(--display);font-size:30px;color:var(--bamboo);margin:2px 0 10px;font-variant-numeric:tabular-nums}
+.tier .small{font-size:15px;color:var(--soft);margin:0}
+
+/* Ladder */
+ol.path{counter-reset:s;list-style:none;padding:0;margin:0}
+ol.path li{counter-increment:s;position:relative;padding:0 0 18px 46px}
+ol.path li::before{content:counter(s);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:var(--chip);border:1px solid var(--line);color:var(--bamboo);font-weight:700;display:grid;place-items:center;font-size:15px}
+ol.path li::after{content:"";position:absolute;left:15px;top:36px;bottom:4px;width:2px;background:var(--line)}
+ol.path li:last-child::after{display:none}
+
+/* Tables */
+.swapbox{overflow-x:auto}
+.swap{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0 18px}
+.swap th{text-align:left;font-weight:700;color:var(--soft);padding:8px 10px;border-bottom:2px solid var(--line)}
+.swap td{padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.swap td:last-child{color:var(--bamboo);font-weight:500}
+
+/* Link tree mock */
+.trees{display:grid;gap:18px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:640px){.trees{grid-template-columns:1fr 1fr}}
+.phone{border-radius:24px;padding:20px 16px;background:var(--bamboo);color:var(--paper);min-width:0}
+.phone.old{background:var(--chip);color:var(--ink);border:1px solid var(--line)}
+.phone h4{font-size:18px;text-align:center;margin-bottom:4px}
+.phone .bio{font-size:14px;text-align:center;margin:0 0 14px;opacity:.92}
+.pill{display:block;text-align:center;border-radius:999px;padding:10px 12px;margin-top:8px;font-size:14px;background:var(--paper);color:var(--ink);border:1px solid var(--line)}
+.phone.old .pill{font-size:12.5px;padding:6px 10px;margin-top:5px}
+.pill.x{text-decoration:line-through;color:var(--soft)}
+.tag{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-align:center;margin-bottom:8px;opacity:.8}
+
+/* Design grids */
+.centre{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin:10px 0 18px}
+@media(min-width:640px){.centre{grid-template-columns:1fr 1fr}}
+.centre > div{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.centre h4{color:var(--bamboo);margin-bottom:4px}
+.centre p{font-size:15px;color:var(--soft);margin:0}
+.centre p b{color:var(--ink)}
+
+/* Week */
+.week{display:grid;gap:10px}
+.day{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;padding:14px 16px;border-radius:14px;background:var(--paper);border:1px solid var(--line)}
+.day.key{border:2px solid var(--rose)}
+.day b{font-family:var(--display);font-weight:500;font-size:19px;color:var(--bamboo)}
+@media(max-width:480px){.day{grid-template-columns:minmax(0,1fr)}}
+
+/* Quotes and copy */
+.copyline{background:var(--paper);border:1px dashed var(--leaf);border-radius:12px;padding:12px 14px;margin:10px 0;font-size:16px}
+.voiceq{font-family:var(--display);font-size:22px;font-style:italic;color:var(--bamboo);margin:18px 0}
+
+/* Buttons + coupon */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 20px;border-radius:12px;font:600 16px var(--body);text-decoration:none;text-align:center;cursor:pointer;border:2px solid var(--bamboo)}
+.btn.primary{background:var(--bamboo);color:var(--paper)}
+.btn.ghost{background:transparent;color:var(--bamboo)}
+.btns{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.coupon{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;padding:12px 14px;border:1px dashed var(--rose);border-radius:12px;background:var(--chip);flex-wrap:wrap}
+.coupon .code{font:700 18px ui-monospace,"SF Mono",Menlo,Consolas,monospace;letter-spacing:.04em}
+.coupon small{display:block;font-size:13px;color:var(--soft);font-family:var(--body);font-weight:400;letter-spacing:0}
+.copy{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:10px;padding:8px 14px;font:600 14px var(--body);cursor:pointer}
+.flag{display:inline-block;font-size:12px;font-weight:700;color:var(--paper);background:var(--rose);border-radius:6px;padding:1px 8px;vertical-align:2px;margin-left:6px}
+
+footer{border-top:1px solid var(--line);padding-block:26px 40px;color:var(--soft);font-size:14px}
+.theme{background:none;border:1px solid var(--line);color:var(--soft);border-radius:999px;padding:6px 12px;font:500 13px var(--body);cursor:pointer}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="topbar">
+  <button type="button" class="menubtn" id="menuBtn" aria-controls="side" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu
+  </button>
+  <span class="current" id="currentLabel">From our call</span>
+</div>
+<div class="scrim" id="scrim"></div>
+<aside class="side" id="side" aria-label="Plan sections">
+  <button type="button" class="closebtn" id="closeBtn" aria-label="Close menu">×</button>
+  <div class="brand">Ali's Homecoming Plan</div>
+  <div class="sub">One door in. Built around your design.</div>
+  <div role="tablist" aria-orientation="vertical">
+    <button class="tab" role="tab" aria-selected="true" data-p="call">From our call</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="design">Your design</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="plan">The plan</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="home">The community</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="setup">Setting up Skool</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="links">Instagram and link tree</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="web">Website</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="social">Content and Substack</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="vis">Visibility</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="week">Your rhythm</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="work">Work with me</button>
+  </div>
+</aside>
+
+<div class="content">
+<header class="hero">
+  <div class="wrap">
+    <div class="for">Prepared for Ali Skiba by Aurailia · October 2026</div>
+    <h1>One door in.<br><em>Everything you are,</em> inside.</h1>
+    <p class="lede">You don't need more offers. You need one home for the ones you already have, and one clear door for women to walk through. Here's how we build Homecoming on Skool, fill it with your first hundred founding voices, and let your music, courses and mentorship sell from the inside, without you hustling a single flyer around town. Every step is shaped by how you're built: a Manifesting Generator who grows by responding, a 6/2 role model who's meant to be found, and a woman whose gut always knows first.</p>
+    <div class="chart" aria-label="Your chart at a glance">
+      <span>Manifesting Generator</span><span>Sacral authority</span><span>6/2 profile</span><span>Single Definition</span><span>Left Angle Cross of Separation</span>
+    </div>
+
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- CALL -->
+<section class="panel on" id="call" role="tabpanel">
+  <h2>What I heard on our call</h2>
+  <p class="intro">Here's what you shared, what your design says about each piece, and how it shaped your plan.</p>
+
+  <div class="hd"><span class="lens">Your design in one breath</span>
+    <p><b>Manifesting Generator.</b> You have a powerful, renewable life force for the work that lights you up, and almost none for the work that doesn't. You're multi-passionate by design, fast, and built to <b>respond</b> to what life brings you rather than push things into being. When it's aligned, you feel <b>satisfaction</b>. When it's not, you feel <b>frustration</b>.</p>
+    <p><b>Sacral authority.</b> Your truth lives in your gut and comes out as a sound before it becomes a sentence: "uh-huh" or "unh-unh." Your mind is brilliant, but it's not where your decisions come from.</p>
+    <p><b>6/2 profile.</b> The Role Model and the Hermit. You're built to be found doing your thing and called out to share it, not to chase attention. And you're in your "on the roof" years, integrating everything you've lived so you can become the living example of it.</p>
+    <p>Everything you told me on our call lines up with this. Here's how.</p>
+  </div>
+
+  <h3>What you told me</h3>
+  <ul class="plain">
+    <li><b>You've been circling the community idea already,</b> and Monika's been singing Skool's praises. It felt aligned the moment we talked about it. <span class="why">Manifesting Generator. That lit-up feeling was your sacral responding to something outside you. That's exactly how your yeses are meant to arrive.</span></li>
+    <li><b>You moved about 2,000 to 2,500 email subscribers to Substack,</b> where you write about life and everything it's taught you about speaking your truth. Your body of work is born from what you've lived. <span class="why">6 line, plus Gate 35 in your cross. The role model teaches from experience. Your life is the curriculum.</span></li>
+    <li><b>You've tried to make the Voice Activation Masterclass the gateway,</b> but people comment on ManyChat expecting something free, land on a checkout page, and bounce. <span class="why">2 line. You're built to be discovered, not sold. She needs to feel you first, then she'll come closer on her own.</span></li>
+    <li><b>Your content has leaned into "the Ali Skiba show"</b> and not enough into what changes for your women. Like the client who can now tone without crying, and speak up without that dreaded lump in her throat. <span class="why">6 line. A role model isn't the show, she's the mirror. Women need to see themselves in your story.</span></li>
+    <li><b>You attract three women right now.</b> The woman in her 50s who's lost her radiance, maybe just been cheated on, who wants her mojo back and will never, ever let you film her. The woman searching for her purpose, who can feel there's more for her and is wondering if it could become her own business. And the one already becoming a sound healer or facilitator, who wants to get over the ick of being on camera and fill her own rooms. <span class="why">Manifesting Generator, the multi-hyphenate. You'll always attract more than one kind of woman. One door keeps it simple for all of them.</span></li>
+    <li><b>What you love most is talking.</b> Sharing your stories, the time you sold zero tickets and what it taught you, and tying it straight back to her life. You feel a deep pull toward writing. <span class="why">Sacral to Throat. Your voice is powered by your gut, so when you talk about what genuinely lights you up, it lands every time.</span></li>
+    <li><b>You don't have a home for your people.</b> There's an old Facebook group where everyone promotes their own events, and you're over WhatsApp groups and the "flyers around town" vibe. <span class="why">2 line. The Voice called you out with nowhere for all those people to land. This time, the home comes first.</span></li>
+    <li><b>Your November event feels like a turning point</b> in how you do business. <span class="why">Sacral authority. That's a clear gut "unh-unh" to the old way. Honor the fuck no.</span></li>
+    <li><b>You're phasing out people coming to your home for 1:1s.</b> You want to protect your energy, and if you do offer them, they need to be priced like they're worth it. <span class="why">Sacral. Your energy stopped responding to this, and a Manifesting Generator can't run on energy that isn't there. Your open Heart also needs to hear it: you don't have to prove your worth with cheap sessions.</span></li>
+    <li><b>You want to charge in USD.</b> About half your following is in the US and UK.</li>
+    <li><b>The cosmos keeps handing you content.</b> The Libra New Moon was all about the voice we silence to keep the peace, and it changes every week, so you'll never run out. <span class="why">Manifesting Generator. You create best in response. The moon gives you something new to respond to every week.</span></li>
+    <li><b>You're a video and audio woman.</b> Too much reading and your eyes glaze over. You reply to almost everything with a voice note. <span class="why">Defined Throat, wired to your gut. Your voice is your strongest asset, so make it the medium of everything.</span></li>
+    <li><b>You looked at a growth operator,</b> and realized he gets numbers and machines, not embodiment. What you really want is support, accountability, and someone to riff ideas with. <span class="why">Manifesting Generator. You don't need a machine pushing you. You need things to respond to, and someone asking you yes or no questions so your sacral can answer.</span></li>
+    <li><b>An idea landed on the call:</b> a 7-day embodied voice challenge as the first thing women get. And a name floated in: "the embodied voice," because this is so much more than voice activation. <span class="why">Sacral authority in action. It came out of you mid-conversation, in response to a question, with energy behind it. That's what a real yes looks like.</span></li>
+  </ul>
+
+  <h3>What I see</h3>
+  <p>Nothing is wrong with your offers. Your masterclass, your course, your Sound Medicine Library, your albums, your mentorship are all good. They're just scattered across twenty link tree buttons, a website, Substack and a shop, so nobody knows where to start, and you have to promote each one separately. That's the exhaustion.</p>
+  <p><b>And that exhaustion is your design talking.</b> Promoting every offer separately, filling rooms with flyers, chasing discovery calls: that's initiating and pushing, which is the opposite of how a Manifesting Generator is built to work. Frustration is your not-self signal, and it's been flashing for a while. It's not a sign you need to try harder. It's a sign you've been pushing where you're designed to respond.</p>
+  <p>The masterclass also isn't failing because it's not good. It's failing because it's asking a stranger to pay before she's felt what it's like to work with you, and there's no urgency to "learn to speak your truth" on a random Tuesday. Your 2 line is built to be discovered, so she needs to discover you first, for free, in her own body. Then she buys.</p>
+  <p>Your 6 line explains the bigger picture. The Voice, the burnout, the albums, the slow return to center: that's the role model's path. You've been gathering wisdom on the roof, and now you're ready to come down and be the example. Homecoming is where women get to watch you do it.</p>
+  <p>And you already have what most women spend a year building: around 57,000 Instagram followers, a couple of thousand Substack readers, TV and festival credibility, The Voice, two albums, and a library of courses ready to go. We're just giving all of it one home, so you can stop pushing and start responding.</p>
+
+  <h3>What this plan does</h3>
+  <ul class="plain">
+    <li><b>One door: Homecoming on Skool.</b> Every post, link and email points to the same place. <span class="why">Manifesting Generator. A community is a room full of things to respond to: questions, comments, requests. You stop guessing and start answering.</span></li>
+    <li><b>The free gift that gets her in is your 7-day challenge.</b> Short daily audios (you already half built this with Seven Mornings Seven Sounds). She feels the work in her body, and that's what makes her upgrade. <span class="why">2 line and defined Throat. She discovers you through your voice, which is exactly how you're built to be found.</span></li>
+    <li><b>Free for the first hundred, for life.</b> Real urgency, without a fake countdown. After a hundred, entry is $7 to $11 a month.</li>
+    <li><b>The paid tier holds your library and your lives:</b> masterclass, Vocal Awakening Course, Sound Medicine Library, your music, and a monthly live voice and sound ceremony tied to the moon.</li>
+    <li><b>Two paths inside, one door in.</b> A "Find Your Voice" path for the woman getting her radiance back, and a "Share Your Gift" path for the woman finding her purpose and maybe building a business around it, all the way to holding her own rooms. Same front door, because no woman can share her gift until she's found her voice.</li>
+    <li><b>VIP and Awaken Her sit at the top,</b> so mentorship clients come from women who already trust you, not from cold discovery calls. <span class="why">Manifesting Generator. When a member asks to work with you, that's something to respond to. Your sacral answers, and there's no chasing.</span></li>
+    <li><b>Every decision runs through your gut.</b> The name, the prices, which offers stay, which go. We ask you yes or no questions and listen for the sound. <span class="why">Sacral authority. Not your mind, not a pro and con list, not what worked for someone else.</span></li>
+    <li><b>Everything in USD.</b></li>
+    <li><b>Audio everywhere,</b> with SkoolKit so you can reply to posts, comments and DMs with your voice.</li>
+    <li><b>Your link tree goes from about twenty links to four,</b> plus an events link only while something's on.</li>
+  </ul>
+
+  <div class="hd"><span class="lens">How your three women fit in one home</span>
+    <p><b>Every woman walks in through her voice.</b> The 50-year-old wants her mojo back. The purpose seeker wants to hear what her life is actually asking of her. The budding sound healer wants to stop freezing on camera. Underneath, it's the same thing: a woman who learned it was safer to be small. So the free challenge is for all of them.</p>
+    <p>Once inside, they split into two paths. The radiance woman goes deeper into <b>Find Your Voice</b>: the ceremonies, the Sound Medicine Library and the body work. The purpose seeker and the facilitator find <b>Share Your Gift</b>: how you went from burnt-out tech exec to living your purpose, how to turn a calling into a business, and, when she's ready, how you curate events, fill rooms and market without bro energy. She graduates into Awaken Her. One door, two paths, zero confusion on your link tree.</p>
+    <p>Your own story is the bridge for the purpose seeker. Silicon Valley, burnout, The Voice, and building a life around your gift. She doesn't need you to tell her what her purpose is. She needs to watch a woman who found hers.</p>
+  </div>
+</section>
+
+<!-- DESIGN -->
+<section class="panel" id="design" role="tabpanel">
+  <h2>How you're built to grow</h2>
+  <p class="intro">Every tab has a "your design" note explaining why we're doing it this way. This tab is the key to all of them. Come back here whenever something starts to feel like pushing.</p>
+
+  <h3>Manifesting Generator: the multi-hyphenate who grows by responding</h3>
+  <p>About a third of people are Manifesting Generators. You have a sacral motor, the most powerful, renewable life force in the chart, and it's wired straight to your voice. That gives you huge, sustainable energy for the work that lights you up, and almost none for the work that doesn't. Your strategy is to <b>respond</b>. Life brings something to you, your gut says yes or no, and you go.</p>
+  <p>Self-promoted events are the opposite of that. You're initiating, then pushing, then pushing some more to fill the room. That's why it feels so heavy even though you're brilliant at it.</p>
+  <p><b>You're also built to be multi-passionate.</b> Singer, facilitator, speaker, mentor, writer. That's not a lack of focus, it's your design. Manifesting Generators move fast, skip steps, and find the shortcut once they've tried things a few ways. The trick isn't choosing one passion. It's giving all of them one home, so your audience never has to choose either.</p>
+  <p><b>One more Manifesting Generator key: inform before you act.</b> You move so fast that people can get blindsided. Before a big change, like closing in-home sessions or moving everything to Skool, tell your people what's coming. It clears the path and saves you resistance later.</p>
+  <div class="hd"><span class="lens">What this means for Homecoming</span>
+    <p>A community is a room full of things to respond to. Women post, ask, comment and tell you what they want next, and you answer with what lights you up. You stop guessing what to create. When it's working, you feel <b>satisfaction</b>. When it's not, you feel <b>frustration</b>. That's your signal to stop and ask your gut, not to try harder.</p>
+    <p>It also means you can let things go. Manifesting Generators often start something, realize it's not right, and pivot. That's not failure. It's your design finding the faster path.</p>
+  </div>
+
+  <h3>Sacral authority: follow the gut sound</h3>
+  <p>Your truth comes out as a sound before it becomes a sentence. "Uh-huh" or "unh-unh." It's in the body, in the moment, and it only answers what's in front of it. Your mind's job is to explain the answer afterward, not to make it.</p>
+  <p>This is especially important for you, because your mind is fast and clever (hello, defined Ajna and former tech exec). It can build a beautiful case for almost anything. Your sacral can't be talked into things. That's what makes it trustworthy.</p>
+  <p>Sacral answers come in the present moment. You don't need to sleep on it or wait for clarity. If you have to think about it for a week, the energy probably isn't there.</p>
+  <div class="hd"><span class="lens">Use it in this plan</span><ul class="plain">
+    <li><b>Have someone ask you yes or no questions out loud.</b> "Homecoming or The Embodied Voice?" "Do you want to do 1:1 sessions at all?" "$27 or $37?" Listen for the sound, not the explanation.</li>
+    <li><b>Use Voxer this way with me.</b> Send me the decision, I'll send back yes or no questions, and you answer with the first sound that comes out.</li>
+    <li><b>If you're making a pro and con list, it's already a no.</b> Or at least a "not now."</li>
+    <li><b>Energy is the answer.</b> If you feel lit up and could keep going, it's a yes. If you feel heavy, foggy or bored, it's a no, no matter how good it looks on paper.</li>
+    <li><b>Follow the fuck yes, honor the fuck no.</b> You already teach this. Now run your business on it.</li>
+  </ul></div>
+
+  <h3>Your 6/2 profile: the role model who gets called out</h3>
+  <p><b>The 2 line is the hermit.</b> You have natural gifts you didn't have to learn. You do your thing, people notice, and they call you out to share it. You're not built to chase attention. You're built to be found. You also need real time alone, in your own space, to recharge those gifts. Your hermit time isn't laziness, it's where the next song comes from.</p>
+  <p>That's what happened with The Voice. A huge call-out arrived before there was a home to hold it. Your nervous system didn't fail. There just wasn't anywhere for all those people to land. Homecoming is that place.</p>
+  <p><b>The 6 line is the role model, and it moves in three phases.</b> Until about 30, you learn by living it all: the highs, the burnout, the trial and error. From about 30 to 50, you're "on the roof," stepping back, observing, integrating what you've lived, and becoming more selective about where you spend your energy. After 50, you come off the roof as the living example of everything you learned.</p>
+  <p>You're in the roof years now. That's why the slower pace, the integration, and the deep personal work feel so important. Slower, wiser growth is right on time for you. And it's why women trust you: you're not teaching theory, you're teaching what you survived and turned into wisdom.</p>
+  <div class="hd"><span class="lens">Use it in this plan</span><ul class="plain">
+    <li><b>Make yourself easy to find,</b> then respond to who shows up: Skool discovery, guest spots in other women's communities, your Substack, festival and corporate bookings. Visibility for you is about being findable, not being loud every day.</li>
+    <li><b>Protect your hermit time.</b> Your batch day and your low days are part of the strategy. The 2 line has to retreat to come back with something worth sharing.</li>
+    <li><b>Lead with your lived story.</b> The 6 line's authority comes from having been through it. Tell women where you've been, not just what to do.</li>
+    <li><b>Be selective.</b> On the roof, you get to say no to rooms, clients and opportunities that don't fit. That's not arrogance. It's how a role model protects the example she's becoming.</li>
+  </ul></div>
+
+  <h3>Your three channels</h3>
+  <p>You have one connected circuit (Single Definition), so you process quickly and don't need anyone else to "complete" you. Everything runs from your gut, through your identity, to your voice.</p>
+  <div class="centre">
+    <div><h4>5-15, Rhythm</h4><p>Gut to identity. You're built to live in flow and natural cycles, not a 9 to 5 schedule. <b>Your cyclical business isn't a quirk, it's your chart.</b> Seasons, moons and batch days suit you.</p></div>
+    <div><h4>1-8, Inspiration</h4><p>Identity to voice. You're here as a creative role model, contributing your one-of-a-kind expression. <b>Your music and your story are the brand.</b> Lead with them.</p></div>
+    <div><h4>17-62, Acceptance</h4><p>Mind to voice. You organize ideas into clear frameworks and detail. <b>You can turn what you've lived into teachable steps.</b> That's your Share Your Gift path.</p></div>
+    <div><h4>Gut to voice</h4><p>Your defined Throat is powered by your Sacral. <b>When you speak about what genuinely lights you up, it lands.</b> When you speak because you "should," it falls flat.</p></div>
+  </div>
+
+  <h3>Your five open centers, and the rule for each</h3>
+  <p>Open centers are where you take in other people's energy. They're also exactly what your women struggle with, because you teach what you've lived.</p>
+  <div class="centre">
+    <div><h4>Open Heart</h4><p><b>Rule: You don't have to prove you're worth it.</b> This is the people pleaser's center. No "ON SALE 🔥" when you're nervous, no over-delivering to earn the yes. Your prices go up, not down.</p></div>
+    <div><h4>Open Solar Plexus</h4><p><b>Rule: Notice whose feelings you're feeling.</b> You absorb the room's emotions, which makes you a stunning facilitator and makes visibility feel overwhelming. After a live, take time alone before you decide anything.</p></div>
+    <div><h4>Open Root</h4><p><b>Rule: Pressure isn't a deadline.</b> The urge to rush and "just get it done" isn't yours. If it feels urgent and joyless, slow down.</p></div>
+    <div><h4>Open Spleen</h4><p><b>Rule: Let go of what's run its course.</b> You can hold onto old offers out of fear. The in-home 1:1s, the twenty links, the old Facebook group. Release them with love.</p></div>
+    <div><h4>Open Head</h4><p><b>Rule: You don't have to figure it all out.</b> Ideas will keep pouring in. Write them down and bring them to Voxer. Build only the ones your community asks for.</p></div>
+  </div>
+
+  <h3>Your life theme: the Left Angle Cross of Separation</h3>
+  <p>You're here to be distinct. A little apart, a little wild, not blending into the sea of sound healers. Your own words say it best:</p>
+  <p class="voiceq">"This is what it looks like when a woman stops making herself digestible."</p>
+  <div class="centre">
+    <div><h4>Gate 35, experience</h4><p>Your most important gift. You're here to live fully and teach from it. <b>Your stories are the curriculum.</b></p></div>
+    <div><h4>Gate 22, grace</h4><p>Openness, emotional depth and artistry. <b>Your music lives here.</b> You're at your best when you're in the mood. Honor that.</p></div>
+    <div><h4>Gate 5, rhythm</h4><p>Natural timing. <b>Moon cycles, seasons and your own body set the pace,</b> not a content calendar.</p></div>
+    <div><h4>Gate 47, realization</h4><p>Making sense of the past. <b>You turn what happened to you into wisdom</b> other women can use.</p></div>
+  </div>
+
+  <h3>Signs you're off track</h3>
+  <ul class="plain">
+    <li><b>Frustration.</b> Your not-self alarm. You're pushing something your gut never said yes to.</li>
+    <li><b>Discounting when you're nervous.</b> That's your open Heart trying to prove your worth.</li>
+    <li><b>Planning a big self-promoted event</b> that needs weeks of flyers and reminders.</li>
+    <li><b>Building a course nobody asked for.</b> Ask the room first.</li>
+    <li><b>Homecoming feels like a chore.</b> Something needs to go, or go to someone else. We look at it together.</li>
+  </ul>
+</section>
+
+<!-- PLAN -->
+<section class="panel" id="plan" role="tabpanel">
+  <h2>Six months, three phases</h2>
+  <p class="intro">Tick things off as you go. Your progress saves in this browser. Under each task is the reason it fits your design.</p>
+  <p class="rule">One door. Build with what you already have. Add only what the women inside ask for.</p>
+
+  <details class="phase" open>
+    <summary><div><span class="when">October to early November</span><span class="ttl">Build the home</span></div><span class="prog"></span></summary>
+    <div class="body">
+      <p class="goal">Homecoming is live on Skool, filled mostly with what you already have, and your link tree points to one place.</p>
+      <label class="check"><input type="checkbox" data-id="a1"><span class="txt"><b>Say yes to the name.</b> Homecoming, The Embodied Voice, or something that arrives. Have someone ask you out loud and listen for the gut sound. <span class="who">Ali</span><span class="why">Sacral authority. Your body answers in a sound, not a list.</span></span></label>
+      <label class="check"><input type="checkbox" data-id="a2"><span class="txt"><b>Record the 7-Day Embodied Voice Challenge.</b> Seven short audios, 5 to 7 minutes each, plus a welcome video. Rework Seven Mornings Seven Sounds rather than starting from scratch. Record all of it on one batch day. <span class="who">Ali</span><span class="why">Defined Throat. Your voice is the product, so the free gift is literally you.</span></span></label>
+      <label class="check"><input type="checkbox" data-id="a3"><span class="txt"><b>Build Homecoming on Skool.</b> Create your account with <a href="https://www.skool.com/signup?ref=3d4bd5bdcda847a3afcfd90d513f22bf" target="_blank" rel="noopener">this link for a free trial</a>, then: Start Here classroom, the challenge, your free breathwork journey, the paid classrooms, the About page and banner, and member onboarding. <span class="who">Aurailia</span><span class="why">Manifesting Generator. Save your sacral energy for creating, not configuring.</span></span></label>
+      <label class="check"><input type="checkbox" data-id="a4"><span class="txt"><b>Move your library inside.</b> Voice Activation Masterclass, Vocal Awakening Course, Sound Medicine Library, the crystal bowl journey, and a listening room for In Spirit and In Truth. <span class="who">Aurailia</span><span class="why">6 line. Your body of work, gathered in one place, is the role model's home.</span></span></label>
+      <label class="check"><input type="checkbox" data-id="a5"><span class="txt"><b>Cut the link tree to four links,</b> plus an events link only while something's on, and rewrite your Instagram bio. Remove the expired Sacred Attunement link today. <span class="who">Ali</span><span class="why">2 line. Make yourself easy to find, then let them come.</span></span></label>
+      <label class="check"><input type="checkbox" data-id="a6"><span class="txt"><b>Point ManyChat at the free challenge,</b> not a checkout page. Keyword "VOICE" sends the Homecoming link. Now "free" actually means free. <span class="who">Ali</span><span class="why">Respond. Women ask, your system answers.</span></span></label>
+      <label class="check"><input type="checkbox" data-id="a7"><span class="txt"><b>Install SkoolKit</b> so you can answer posts, comments and DMs with voice notes. <span class="who">Ali</span><span class="why">Gut to voice. Typing drains you, talking lights you up.</span></span></label>
+      <div class="target"><b>Target:</b> Homecoming built and tested, and you've walked through it as a new member.</div>
+    </div>
+  </details>
+
+  <details class="phase">
+    <summary><div><span class="when">November</span><span class="ttl">The founding hundred</span></div><span class="prog"></span></summary>
+    <div class="body">
+      <p class="goal">Open the door to the people who already love you. Your November event becomes the last event of the old way and the first invitation into the new one.</p>
+      <label class="check"><input type="checkbox" data-id="b1"><span class="txt"><b>Write one Substack piece about the turning point.</b> Why you're done with flyers around town, and why you built a home instead. End with the founding invite. <span class="who">Ali</span><span class="why">Gate 35. Your story is the invitation.</span></span></label>
+      <label class="check"><input type="checkbox" data-id="b2"><span class="txt"><b>Invite your November event room inside.</b> A QR card on every cushion and one sentence from you at the close: "This doesn't end tonight. Come home." <span class="who">Ali</span><span class="why">These women already felt you in their bodies. Inviting them isn't pushing.</span></span></label>
+      <label class="check"><input type="checkbox" data-id="b3"><span class="txt"><b>A week of challenge content on Instagram,</b> batched in one sitting. Each post teaches one tiny voice practice and says "comment VOICE for the full seven days, free." <span class="who">Ali</span><span class="why">5-15 Rhythm. One batch, a whole week of reach.</span></span></label>
+      <label class="check"><input type="checkbox" data-id="b4"><span class="txt"><b>Personally invite 20 women</b> who've worked with you or come to your events. A voice note, not a template. <span class="who">Ali</span><span class="why">2 line. The people who already called you out deserve first seats.</span></span></label>
+      <label class="check"><input type="checkbox" data-id="b5"><span class="txt"><b>Host your first New Moon Voice Circle live inside,</b> free for founders this first month. Breath, sound, voice, and the week's cosmic theme. <span class="who">Ali</span><span class="why">Gate 5. Let the moon set the date, not a launch calendar.</span></span></label>
+      <label class="check"><input type="checkbox" data-id="b6"><span class="txt"><b>Post once in your old Facebook group</b> inviting people to your new home, then let the group rest. <span class="who">Ali</span><span class="why">Open Spleen. Release what's run its course.</span></span></label>
+      <div class="target"><b>Target by early December:</b> 100 founding members, your first paid members, and a few women asking how to work with you more closely.</div>
+    </div>
+  </details>
+
+  <details class="phase">
+    <summary><div><span class="when">December to March</span><span class="ttl">Let the room tell you what's next</span></div><span class="prog"></span></summary>
+    <div class="body">
+      <p class="goal">Homecoming carries itself. Skool starts promoting you, and mentorship comes from inside instead of cold discovery calls.</p>
+      <label class="check"><input type="checkbox" data-id="c1"><span class="txt"><b>At a hundred, close free entry.</b> Founders stay free for life. New women join at $7 to $11 a month. <span class="who">Both</span><span class="why">Open Heart. A real limit honors the women who came first.</span></span></label>
+      <label class="check"><input type="checkbox" data-id="c2"><span class="txt"><b>Switch to Skool Pro and turn on discovery.</b> Skool's ads team promotes paid communities for a share of what members pay. Your Instagram following and The Voice make you exactly who they love to promote. <span class="who">Aurailia</span><span class="why">2 line. Someone else calls you out, and you never posted a thing.</span></span></label>
+      <label class="check"><input type="checkbox" data-id="c3"><span class="txt"><b>Open VIP</b> once a woman asks for more of you. A monthly 1:1 call plus voice note access between calls. <span class="who">Both</span><span class="why">Respond. The first ask is your invitation to open it.</span></span></label>
+      <label class="check"><input type="checkbox" data-id="c4"><span class="txt"><b>Build the Share Your Gift classroom</b> from what you've already lived: finding your purpose after burnout, turning a calling into a business, and holding rooms (facilitation, event curation, marketing without bro energy). Teach it live in Premium first. <span class="who">Ali</span><span class="why">17-62. Your lived experience, organized into steps.</span></span></label>
+      <label class="check"><input type="checkbox" data-id="c5"><span class="txt"><b>Run your first members' challenge</b> on the theme they ask for. When it ends, it moves into the paid library. <span class="who">Ali</span><span class="why">Manifesting Generator. Build in response, not in a vacuum.</span></span></label>
+      <label class="check"><input type="checkbox" data-id="c6"><span class="txt"><b>Offer Awaken Her and the Come Home Retreat to members first.</b> By application only, through Homecoming. <span class="who">Ali</span><span class="why">6 line. The role model's deepest work goes to women who already know her.</span></span></label>
+      <div class="target"><b>Target by March:</b> a steady paid tier, a handful of VIPs, mentorship clients from inside the community, and zero self-promoted events you didn't want to run.</div>
+    </div>
+  </details>
+
+  <div class="note"><p><b>Where the money really grows.</b> The membership is steady recurring income, and it's lovely. But the real lift comes from women moving up: VIP, Awaken Her, and the retreat. My own community had 28 people when the VIP upgrades alone covered my monthly needs. You're starting with tens of thousands of followers. Imagine a few hundred members and a handful of VIPs.</p></div>
+
+  <h3>Staying off the table for six months</h3>
+  <ul class="plain">
+    <li>New self-promoted in-person events after November, unless someone invites you to facilitate.</li>
+    <li>Building any new course before members ask for it.</li>
+    <li>Daily posting.</li>
+    <li>Discounts and "ON SALE" pushes.</li>
+    <li>In-home 1:1 sessions at your old price.</li>
+  </ul>
+</section>
+
+<!-- COMMUNITY -->
+<section class="panel" id="home" role="tabpanel">
+  <h2>Homecoming, level by level</h2>
+  <p class="intro">Everything lives on Skool, in USD. Women come in for the challenge, feel your work in their bodies, and choose how close they want to get.</p>
+
+  <div class="hd"><span class="lens">Through your design</span><p>Women don't join a community because it exists. They join for something specific inside it. For you, that's the 7-Day Embodied Voice Challenge. Once inside, you respond to what they ask for. That's your Manifesting Generator strategy turned into a business model.</p>
+    <p><b>6/2:</b> the levels let women find you at their own pace and come closer when they're ready. Nobody gets chased. <b>Sacral authority:</b> every price below is a starting point. Say each one out loud and listen for the uh-huh before you set it.</p></div>
+
+  <div class="tiers">
+    <div class="tier now">
+      <h3>The Doorway</h3>
+      <div class="state">Free for the first 100, for life · then $7 to $11 a month</div>
+      <ul class="plain">
+        <li><b>The 7-Day Embodied Voice Challenge.</b> Seven short daily audios that take her from a whisper to a full-bodied sound. The main reason she joins.</li>
+        <li><b>A welcome video from you,</b> three minutes, warm, a little wild</li>
+        <li><b>Your free guided breathwork journey</b> (the one your website already gives away)</li>
+        <li><b>Voice Weather:</b> a short weekly audio on what the moon and planets are stirring up for her voice that week. The only thing that changes weekly, recorded in your batch.</li>
+        <li><b>A peek at everything else,</b> with locked classrooms she can see but not open yet</li>
+      </ul>
+    </div>
+
+    <div class="tiers two">
+      <div class="tier">
+        <h3>Homecoming Premium</h3>
+        <div class="state">Paid · opens with the community</div>
+        <div class="price">$33 a month</div>
+        <ul class="plain">
+          <li><b>New Moon Voice Circle,</b> live once a month. Breath, sound and voice.</li>
+          <li><b>A monthly live Q&amp;A</b> with you</li>
+          <li>Voice Activation Masterclass</li>
+          <li>Vocal Awakening Course</li>
+          <li>Sound Medicine Library and crystal bowl journeys</li>
+          <li>In Spirit and In Truth listening room</li>
+          <li><b>Find Your Voice</b> and <b>Share Your Gift</b> classrooms</li>
+          <li>Every past challenge</li>
+        </ul>
+        <p class="small">Founding price for the first wave, locked for life: $22 a month. Range to check with your gut: $27 to $37. Yearly option at about two months free.</p>
+      </div>
+      <div class="tier">
+        <h3>VIP</h3>
+        <div class="state">Opens when the first woman asks</div>
+        <div class="price">$222 to $333 a month</div>
+        <ul class="plain">
+          <li>Everything in Premium</li>
+          <li><b>A monthly 1:1 call</b> with you, online</li>
+          <li><b>Voice note access between calls,</b> through Skool DMs</li>
+          <li>First seats for Awaken Her and the Come Home Retreat</li>
+        </ul>
+        <p class="small">Capped small. It's a gentle "try working with me" step that's far easier to say yes to than a 3-month container. Two of my free members jumped straight into my VIP.</p>
+      </div>
+    </div>
+
+    <div class="tiers two">
+      <div class="tier">
+        <h3>Awaken Her</h3>
+        <div class="state">By application, through Homecoming</div>
+        <p style="margin:0">Your 3- and 6-month mentorship stays your signature. For the purpose seeker and the facilitator, it can include the business side: shaping her offer, curating events, filling rooms, marketing in her own voice. For the radiance woman, it's the deep embodiment journey. Women apply from inside, after they already trust you.</p>
+      </div>
+      <div class="tier">
+        <h3>One-time unlocks</h3>
+        <div class="state">For women who'd rather buy once</div>
+        <ul class="plain" style="margin:0">
+          <li>Voice Activation Masterclass: $55, or free in Premium</li>
+          <li>Vocal Awakening Course: buy outright, or free in Premium</li>
+          <li>An online 1:1 voice session at your new price</li>
+          <li>The Come Home Retreat, when it's open</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3>How a woman moves through it</h3>
+  <ol class="path">
+    <li>She sees a post about swallowing her truth to keep the peace, comments VOICE, and gets the free challenge link.</li>
+    <li>She joins The Doorway and starts Day 1. By Day 3, she's making sounds she hasn't made in years.</li>
+    <li>Every lesson ends with one next step: the masterclass, a live circle, or Premium.</li>
+    <li>She joins Premium for the New Moon Voice Circle and your library.</li>
+    <li>She finds her path, Find Your Voice or Share Your Gift, and goes deeper.</li>
+    <li>She wants more of you: VIP, Awaken Her, or the Come Home Retreat.</li>
+  </ol>
+
+  <h3>Hosting your lives, your way</h3>
+  <ul class="plain">
+    <li><b>Timing:</b> your morning in Sydney is the US afternoon. One live time can serve both.</li>
+    <li><b>Before:</b> whatever brings you into your body. You're not "presenting," you're facilitating.</li>
+    <li><b>During:</b> teach from what comes through, and let the cosmic theme of the week shape it.</li>
+    <li><b>After:</b> quiet time alone. Your open Solar Plexus just held a whole room's feelings.</li>
+    <li><b>Celebrate:</b> a monthly wins thread where women post what they said out loud this month that they never would have before. Those posts become your testimonials.</li>
+  </ul>
+</section>
+
+<!-- SETUP -->
+<section class="panel" id="setup" role="tabpanel">
+  <h2>Setting up Skool</h2>
+  <p class="intro">What it costs, how the classrooms are organized, and how to make it an audio-first home that sounds like you.</p>
+
+  <div class="hd"><span class="lens">Through your design</span>
+    <p><b>Manifesting Generator:</b> you'll be tempted to build every classroom at once, because you can. Don't. Build what gets a yes now, open the doors, and let the women inside tell you what to add next. Responding is faster than guessing.</p>
+    <p><b>Sacral authority:</b> the name, the prices, Hobby or Pro. Run each one as a yes or no question out loud. <b>6/2:</b> the About page and banner are where you get found, so they carry your story and The Voice front and center.</p>
+  </div>
+
+  <h3>Which Skool plan</h3>
+  <div class="swapbox">
+  <table class="swap">
+    <thead><tr><th>Plan</th><th>Cost</th><th>When</th></tr></thead>
+    <tbody>
+      <tr><td><b>Hobby</b></td><td>$9 a month, plus 10% of member payments</td><td>While Homecoming is mostly free and you're finding your feet.</td></tr>
+      <tr><td><b>Pro</b></td><td>$99 a month, plus about 2.9% of member payments</td><td>Once paid memberships pass roughly $1,300 a month, or when you want affiliates and Skool discovery.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:15px;color:var(--soft)">All prices in USD, and Skool handles international payments, so your US and UK women pay in their currency.</p>
+
+  <div class="note">
+    <p><b>Start here: create your Skool community.</b> Use my link below to sign up. It gives you a free trial, so you can start building Homecoming before you pay anything.</p>
+    <div class="btns" style="margin-top:12px">
+      <a class="btn primary" href="https://www.skool.com/signup?ref=3d4bd5bdcda847a3afcfd90d513f22bf" target="_blank" rel="noopener">Create your community, free trial</a>
+    </div>
+  </div>
+
+  <h3>Your classrooms <span style="font-family:var(--body);font-size:16px;font-weight:400;color:var(--soft)">(here are suggestions)</span></h3>
+  <ol class="path">
+    <li><b>Start Here.</b> Welcome video, how Homecoming works, and the 7-Day Embodied Voice Challenge. Free.</li>
+    <li><b>Voice Weather.</b> The weekly audio on the moon and planets. Free.</li>
+    <li><b>Find Your Voice.</b> Voice Activation Masterclass and Vocal Awakening Course. Premium, or unlock one-time.</li>
+    <li><b>Sound Medicine Library.</b> Crystal bowl journeys, breathwork, sound baths, and your albums. Premium.</li>
+    <li><b>Share Your Gift.</b> Finding your purpose, turning it into a business, and holding rooms: facilitation, event curation, marketing in your own voice. Premium.</li>
+    <li><b>Live Replays.</b> Every New Moon Voice Circle and Q&amp;A. Premium.</li>
+    <li><b>Work With Ali.</b> VIP, Awaken Her application, the Come Home Retreat, and online 1:1 sessions. Visible to everyone.</li>
+  </ol>
+
+  <h3>Video and audio</h3>
+  <ul class="plain">
+    <li><b>Video:</b> upload straight to Skool, or embed from Loom or an unlisted YouTube link.</li>
+    <li><b>Audio lessons:</b> attach your audio files to each lesson, so women can listen on a walk.</li>
+    <li><b>Your albums:</b> link out to Spotify and Apple Music from the listening room.</li>
+  </ul>
+
+  <div class="hd"><span class="lens">SkoolKit: your voice, everywhere</span>
+    <p>Skool doesn't let you send voice notes on its own. SkoolKit is a small browser add-on, just a few dollars a month, that adds a microphone to Skool so you can:</p>
+    <ul class="plain">
+      <li><b>Reply to posts and comments with a voice note.</b> A woman shares that she finally spoke up to her mother. You answer with your voice, not a heart emoji.</li>
+      <li><b>Send voice notes in DMs.</b> Welcome every founding member personally in 30 seconds.</li>
+      <li><b>Run VIP support by voice,</b> the same way you already reply to everyone.</li>
+    </ul>
+    <p>For a woman whose medicine is her voice, this is the difference between a forum and a home. They hear you, not just read you.</p>
+  </div>
+
+  <h3>Set up once</h3>
+  <label class="check"><input type="checkbox" data-id="s1"><span class="txt"><b>Banner and About page that lead with The Voice.</b> "From The Voice to your voice" energy, plus who it's for and what changes for her. <span class="who">Aurailia</span><span class="why">1-8. Your creative expression is the brand. Show it.</span></span></label>
+  <label class="check"><input type="checkbox" data-id="s2"><span class="txt"><b>Membership questions on join.</b> "What have you been swallowing lately?" Their answers become your content. <span class="who">Aurailia</span><span class="why">Respond. They tell you exactly what to make.</span></span></label>
+  <label class="check"><input type="checkbox" data-id="s3"><span class="txt"><b>Welcome emails:</b> one delivers the challenge, one tells your story, one introduces Premium. <span class="who">Aurailia</span><span class="why">Defined Throat. Systems speak for you between your lives.</span></span></label>
+  <label class="check"><input type="checkbox" data-id="s4"><span class="txt"><b>The calendar,</b> with New Moon Voice Circles and Q&amp;A dates set for three months. <span class="who">Aurailia</span><span class="why">Gate 5. Rhythm you can count on, set once.</span></span></label>
+  <label class="check"><input type="checkbox" data-id="s5"><span class="txt"><b>Member reviews turned on,</b> and a wins thread pinned. <span class="who">Aurailia</span><span class="why">2 line. Their recognition calls you out to new women.</span></span></label>
+  <label class="check"><input type="checkbox" data-id="s6"><span class="txt"><b>A short disclaimer</b> that the community is education and group practice, not therapy or medical care. <span class="who">Aurailia</span><span class="why">Single Definition. Clear edges, clear energy.</span></span></label>
+</section>
+
+<!-- LINKS -->
+<section class="panel" id="links" role="tabpanel">
+  <h2>Instagram and link tree</h2>
+  <p class="intro">Your link tree has about twenty links. A woman who just watched your reel has a few seconds and too many choices, so she leaves and doesn't come back.</p>
+
+  <h3>What's getting in the way</h3>
+  <ul class="plain">
+    <li><b>The bio leads with how you work, not what changes for her.</b> "Nervous system healing + sacred feminine embodiment through vocal liberation" is your method. She's looking for her own problem.</li>
+    <li><b>The first link asks for the biggest commitment.</b> "Book a Discovery Call" is first, shown to women who met you 30 seconds ago.</li>
+    <li><b>An expired link:</b> Sacred Attunement applications, August 25th to 30th.</li>
+    <li><b>Too many names for your work:</b> "7 Week Voice Activation Course," Vocal Awakening Course, Online Mentorship, Sacred Attunement. She can't tell what's what.</li>    <li><b>"ON SALE 🔥"</b> pulls your work toward discount energy, right next to your mentorship.</li>
+    <li><b>Things that don't belong here:</b> a grounding mat, Facebook, YouTube twice.</li>
+  </ul>
+
+  <h3>Before and after</h3>
+  <div class="trees">
+    <div class="phone old">
+      <div class="tag">Now</div>
+      <h4>@aliskiba_official</h4>
+      <p class="bio">Nervous system healing + sacred feminine embodiment through vocal liberation. 1:1 Mentorship • Retreats • Corporate</p>
+      <span class="pill">Book a Discovery Call with Ali</span>
+      <span class="pill">25 Oct | Breath &amp; Sound Journey</span>
+      <span class="pill">1 Hr Voice Activation Masterclass</span>
+      <span class="pill">ON SALE 🔥 7 Week Voice Activation Course</span>
+      <span class="pill">Substack</span>
+      <span class="pill">Official Website &amp; Shop</span>
+      <span class="pill">Upcoming Events</span>
+      <span class="pill">Join The VIP Tribe</span>
+      <span class="pill">In Truth · In Spirit</span>
+      <span class="pill x">Sacred Attunement (Aug 25 to 30)</span>
+      <span class="pill">YouTube · Online Mentorship · Grounding Mat · Podcasts · Crystal Bowl Download · Free Journey · Facebook</span>
+    </div>
+    <div class="phone">
+      <div class="tag">New</div>
+      <h4>@aliskiba_official</h4>
+      <p class="bio">For women done swallowing their truth 🌹 Get your voice back in 7 days, free.</p>
+      <span class="pill" style="border-style:dashed">Upcoming events with Ali <small style="display:block;font-size:11px;color:var(--soft)">Only while something's on</small></span>
+      <span class="pill">🌹 Start the free 7-day voice challenge</span>
+      <span class="pill">Work with Ali</span>
+      <span class="pill">Book Ali to sing, speak or facilitate</span>
+      <span class="pill">Listen to In Spirit and In Truth</span>
+    </div>
+  </div>
+
+  <h3>How the new link tree works</h3>
+  <ul class="plain">
+    <li><b>Four permanent links:</b> the free challenge, Work with Ali, Book Ali, and Listen. Want it leaner? Drop Listen and keep your music inside Homecoming and on your website.</li>
+    <li><b>One event link, only while something's on.</b> It sits at the top while tickets are selling, then comes down the day after. Name it with the date and place when it's a single event ("25 Oct · Breath &amp; Sound Journey, Brookvale"), or use "Upcoming events with Ali" pointing to your events page when there are several. Never one button per event.</li>
+    <li><b>Let Linktree do the remembering.</b> Schedule the event link to appear and disappear on set dates (check your plan includes scheduling), so nothing expired is ever left sitting there.</li>
+    <li><b>As you move online,</b> your events also live on the Homecoming calendar in Skool, so members see every circle, workshop and festival appearance in one place.</li>
+  </ul>
+
+  <h3>Bio options, in your voice</h3>
+  <div class="copyline">For women done swallowing their truth 🌹 Get your voice back in 7 days, free 👇</div>
+  <div class="copyline">Recovering people pleaser. Former tech exec. The Voice. Now I help women stop shrinking and start sounding like themselves 🔥 Free 7-day challenge 👇</div>
+  <div class="copyline">This work isn't about making pretty sounds. It's about breaking the silence 🌹 Start free 👇</div>
+
+  <h3>Where everything else goes</h3>
+  <div class="swapbox">
+  <table class="swap">
+    <thead><tr><th>Link today</th><th>Its new home</th></tr></thead>
+    <tbody>
+      <tr><td>Discovery call, Online Mentorship, Sacred Attunement</td><td>"Work with Ali," one page with the Awaken Her application</td></tr>
+      <tr><td>Masterclass, 7-week course, crystal bowl download</td><td>Inside Homecoming, in Premium or as one-time unlocks</td></tr>
+      <tr><td>Join The VIP Tribe (newsletter signup)</td><td>Your website, where it already lives. The free challenge is the link tree's email door.</td></tr>
+      <tr><td>Upcoming Events, 25 Oct Breath &amp; Sound Journey</td><td>One "Upcoming events with Ali" link, only while something's on</td></tr>
+      <tr><td>Podcasts, TV appearances</td><td>"Book Ali," your speaking and performing page</td></tr>
+      <tr><td>Substack, YouTube, Facebook</td><td>Your website footer and email signature</td></tr>
+      <tr><td>Grounding mat, shop</td><td>Your website</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="hd"><span class="lens">Through your design</span><p>Your 2 line is built to be found. A clean link tree is how you make yourself findable: one clear door, so the woman who's been moved by your reel walks straight in instead of wandering off.</p></div>
+</section>
+
+<!-- WEBSITE -->
+<section class="panel" id="web" role="tabpanel">
+  <h2>aliskiba.com</h2>
+  <p class="intro">Your site is full of proof: Google, Westpac, the Women's Weekly, Binge, Foxtel, 7News, The Voice, festivals, and over fifteen glowing reviews. But it reads like a menu of modalities, a few things are out of date, and nothing on the homepage gives a stranger an easy first step.</p>
+
+  <div class="note"><p><b>No rebuild needed.</b> These are edits to pages you already have. Your community's welcome page lives inside Skool.</p></div>
+
+  <div class="hd"><span class="lens">Through your design</span>
+    <p><b>2 line:</b> your website's job is to make you easy to find and easy to step closer to, with one gentle first step for women not ready to book. <b>6 line:</b> it's the role model's proof, so your lived story, The Voice and your clients' words carry it. <b>Manifesting Generator:</b> you've built a lot of pages over the years. Keep only what still gets a sacral yes, and let the rest go.</p>
+  </div>
+
+  <h3>Priority fixes, in this order</h3>
+  <div class="checks">
+  <label class="check"><input type="checkbox" data-id="w1"><span class="txt"><b>Test your "Join the VIP tribe" newsletter signup.</b> The page code shows a message that the form needs a storage location connected, which can mean signups go nowhere. Make sure it's connected to wherever your list lives now. <span class="flag">Check first</span> <span class="who">Web person</span><span class="why">Defined Throat. Every word you've written is wasted if the door is locked.</span></span></label>
+  <label class="check"><input type="checkbox" data-id="w2"><span class="txt"><b>Remove the expired 8-Week Voice Activation (LIVE) card</b> at the top of your offerings. It still asks for September 16 applications. <span class="who">Web person</span><span class="why">Open Spleen. Let go of what's finished.</span></span></label>
+  <label class="check"><input type="checkbox" data-id="w3"><span class="txt"><b>Add a "Start the free voice challenge" button to the hero,</b> right next to Book Now. <span class="who">Web person</span><span class="why">2 line. A gentler first step for women not ready to book.</span></span></label>
+  <label class="check"><input type="checkbox" data-id="w4"><span class="txt"><b>Rewrite the hero to name her, not your modalities.</b> Swaps are below. <span class="who">Ali</span><span class="why">Gate 35. Speak to what she's living, the way you'd talk to her.</span></span></label>
+  <label class="check"><input type="checkbox" data-id="w5"><span class="txt"><b>Put The Voice up top.</b> Right now it's a small logo in "Performed at." Give it a line in the hero or just below. <span class="who">Web person</span><span class="why">1-8. Your creative path is the credibility.</span></span></label>
+  <label class="check"><input type="checkbox" data-id="w6"><span class="txt"><b>Lead your reviews with voice stories.</b> Nikki's ("I can now confidently speak my truth") goes first. Add the client who can tone without crying. Most current reviews are about single sessions. <span class="who">Ali</span><span class="why">2 line. Other women's recognition is your strongest marketing.</span></span></label>
+  <label class="check"><input type="checkbox" data-id="w7"><span class="txt"><b>Simplify the menu.</b> Six items plus a Resources folder with ten more. Try: Start Free, Work with Ali, Book Ali, Listen, About. <span class="who">Web person</span><span class="why">Open Head. Fewer choices, less pressure for everyone.</span></span></label>
+  <label class="check"><input type="checkbox" data-id="w8"><span class="txt"><b>One name per offer, everywhere.</b> The site says 8-week live and 7-week course. Your link tree says "7 Week Voice Activation Course." Pick Vocal Awakening Course and use it on every page. <span class="who">Web person</span><span class="why">17-62. Clear structure is how your mind lands with others.</span></span></label>
+  <label class="check"><input type="checkbox" data-id="w9"><span class="txt"><b>Update the TV section.</b> The June air dates read like they're still coming up. Make it "As seen on Binge and Foxtel." <span class="who">Web person</span><span class="why">6 line. The role model's proof should feel current.</span></span></label>
+  <label class="check"><input type="checkbox" data-id="w10"><span class="txt"><b>Refresh your Google description and image names.</b> The search description says "Release anxiety, depression &amp; trauma," which reads clinical, and image names still carry your old "Melodious Yogi" brand. <span class="who">Web person</span><span class="why">Cross of Separation. Be found as you are now.</span></span></label>
+  </div>
+
+  <h3>Headline swaps</h3>
+  <div class="swapbox">
+  <table class="swap">
+    <thead><tr><th>Now</th><th>Try</th></tr></thead>
+    <tbody>
+      <tr><td>Come home to yourself</td><td>Come home to your voice. 🌹</td></tr>
+      <tr><td>through the healing power of breath, sound and presence</td><td>For the woman who's spent years swallowing her truth to keep the peace. Through voice, breath and sound, your body learns it's safe to be seen, and you finally take up the space that's always been yours.</td></tr>
+      <tr><td>Begin your journey</td><td>Start the free 7-day voice challenge</td></tr>
+      <tr><td>Ali's work is a fusion of science and spirit</td><td>I'll talk about your vagus nerve and the sacred in the same breath, because your voice lives in both.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- SOCIAL -->
+<section class="panel" id="social" role="tabpanel">
+  <h2>Content and Substack</h2>
+  <p class="intro">You don't need more content. You need content that's about her, and points to one place.</p>
+
+  <h3>The shift</h3>
+  <div class="swapbox">
+  <table class="swap">
+    <thead><tr><th>Before</th><th>Now</th></tr></thead>
+    <tbody>
+      <tr><td>The Ali Skiba show</td><td>Her story, through yours. "Here's what happened to me, and here's what it means for you."</td></tr>
+      <tr><td>Every post promotes something different</td><td>Every post points to the free challenge</td></tr>
+      <tr><td>"Comment for the masterclass" leads to a checkout page</td><td>"Comment VOICE for 7 free days" leads to something actually free</td></tr>
+      <tr><td>Showing the events you run</td><td>Showing what changed for the women in them</td></tr>
+      <tr><td>Creating from a blank page</td><td>Answering what women asked you this week, with the moon as your theme</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="hd"><span class="lens">Through your design</span><p>Your Throat is powered by your gut. You don't make content, you respond. What did someone ask you this week? What's the new moon stirring up? Answer that out loud, once a week, and let systems do the rest.</p></div>
+
+  <h3>Speak to her middle-of-the-night thoughts</h3>
+  <p>Name the moment she's living, so specifically she thinks you've been reading her diary:</p>
+  <ul class="plain">
+    <li>"You rehearsed the conversation 40 times in the shower. Then said 'it's fine.'"</li>
+    <li>"The lump in your throat isn't random. It's every word you didn't say."</li>
+    <li>"You're not too much. You've just been shrinking for so long that normal feels loud."</li>
+    <li>"Fifty, freshly cheated on, and wondering where the woman who used to dance in the kitchen went. She's still in there."</li>
+    <li>"You want to hold sound baths, but the thought of going live makes you want to hide under a crystal bowl."</li>
+    <li>"You're good at your job. You're just not lit up by it. And that quiet voice asking 'is this it?' is getting louder."</li>
+    <li>"You don't need a five-year business plan to start. You need to hear yourself say what you actually want, out loud."</li>
+  </ul>
+
+  <h3>Your weekly content formula</h3>
+  <ol class="path">
+    <li><b>The hook:</b> a moment she's lived, named so specifically she feels seen. "You said 'it's fine' three times today. It wasn't."</li>
+    <li><b>The story:</b> one from your life. The night you sold zero tickets. The Voice. Silicon Valley burnout.</li>
+    <li><b>The science and the sacred:</b> what's happening in her vagus nerve, and why sound is the way out.</li>
+    <li><b>A 30-second practice</b> she can try right now.</li>
+    <li><b>The invite:</b> "Comment VOICE for seven days of this, free."</li>
+  </ol>
+
+  <h3>Substack is your storytelling room</h3>
+  <ul class="plain">
+    <li><b>Keep writing what you live.</b> It's your Gate 35 in long form, and it builds a depth of trust Instagram can't.</li>
+    <li><b>End every piece with the same invitation:</b> "If this landed, come home. Seven days, free."</li>
+    <li><b>Turn each piece into an audio</b> inside Homecoming, for the women who'd rather listen than read. Like you.</li>
+  </ul>
+
+  <h3>Client stories, even from the women who won't be filmed</h3>
+  <ul class="plain">
+    <li><b>Quote cards and carousels</b> of what changed, in their words, anonymous if they prefer.</li>
+    <li><b>Your own voice telling her story</b> (with her blessing): "A woman came to me last month…"</li>
+    <li><b>The monthly wins thread</b> inside Homecoming becomes your best testimonial library.</li>
+  </ul>
+
+  <h3>One batch day, a whole week of reach</h3>
+  <ol class="path">
+    <li>Record one Voice Weather audio and two or three short videos.</li>
+    <li>Write or voice-note one Substack piece.</li>
+    <li>Clips become reels with the VOICE call to action.</li>
+    <li>Scheduled posts go out on their own.</li>
+    <li>ManyChat answers every VOICE comment with the challenge link.</li>
+  </ol>
+</section>
+
+<!-- VISIBILITY -->
+<section class="panel" id="vis" role="tabpanel">
+  <h2>Visibility, the 6/2 way</h2>
+  <p class="intro">Be found in the right rooms instead of shouting in all of them. Each ring is something you respond to, not something you chase.</p>
+
+  <div class="hd"><span class="lens">Through your design</span><p>The Voice called you out before there was a home. Now there's a home. This time, let visibility come in gentle, steady waves your nervous system can hold, instead of one tidal wave.</p></div>
+
+  <h3>Ring one: people who already love you</h3>
+  <ul class="plain">
+    <li><b>Your November event room</b>, with a QR card and a spoken invite.</li>
+    <li><b>Your Substack readers,</b> about 2,000 to 2,500 of them, with a founding invite.</li>
+    <li><b>Twenty personal voice-note invites</b> to past clients and regulars.</li>
+    <li><b>One post in your old Facebook group,</b> then let it rest.</li>
+  </ul>
+
+  <h3>Ring two: your Instagram</h3>
+  <ul class="plain">
+    <li><b>About 57,000 followers</b> and one clear door. The VOICE keyword does the heavy lifting.</li>
+    <li><b>Pin three posts:</b> your story, the free challenge, and a client's voice story.</li>
+  </ul>
+
+  <h3>Ring three: other people introduce you</h3>
+  <ul class="plain">
+    <li><b>Skool discovery,</b> once Premium is live. Skool runs ads for communities and takes a share of what new members pay. Start around 30 to 50 percent. A member Skool finds for you is still a woman who can move up to VIP. You can turn it off anytime.</li>
+    <li><b>Member affiliates.</b> Women who bring friends in earn a share, around 40 percent.</li>
+    <li><b>Guest teaching in other communities,</b> starting with Monika's world. A free voice class, then an invitation home.</li>
+    <li><b>Podcasts</b> on feminine embodiment, people pleasing and burnout. Your corporate-to-The Voice-to-sound story is a booker's dream.</li>
+  </ul>
+
+  <h3>Ring four: the stages</h3>
+  <ul class="plain">
+    <li><b>Festivals, retreats, studios and corporate teams</b> book you through your "Book Ali" page. They fill the room, you facilitate, and every room gets a QR card to the challenge.</li>
+  </ul>
+
+  <div class="note"><p><b>Your total visibility time:</b> one batch day a week, one live a month, voice-note replies when you feel moved, and stages you're invited onto. If visibility starts needing you every day, the plan is wrong, not you.</p></div>
+</section>
+
+<!-- WEEK -->
+<section class="panel" id="week" role="tabpanel">
+  <h2>Your rhythm</h2>
+  <p class="intro">This bends around your cycle, the moon and your energy. It looks the same whether there are fifty women inside or five hundred.</p>
+
+  <div class="hd"><span class="lens">Through your design</span>
+    <p><b>Manifesting Generator:</b> your energy is meant to be used up on work you love, so you fall into bed satisfied, not wired or drained. If you end a day frustrated, something in the week needs to change. <b>Sacral authority:</b> each morning, ask your body "do I have energy for this today?" and trust the sound. <b>2 line:</b> your hermit time isn't optional. It's where your gifts recharge.</p>
+  </div>
+
+  <div class="week">
+    <div class="day key"><b>Batch day</b><span>Once a week, on the day your energy's high. Voice Weather, two or three short videos, and one Substack piece or voice note. Done when it's done. <span class="why">5-15 Rhythm. You create in flow, not on a schedule.</span></span></div>
+    <div class="day"><b>Daily, if you feel it</b><span>A few minutes inside Homecoming. Voice-note replies to whatever moves you. Skip days freely. <span class="why">Sacral. Respond to what pulls you, let the rest go.</span></span></div>
+    <div class="day"><b>New moon</b><span>The New Moon Voice Circle, live, for Premium. <span class="why">Gate 5. The cosmos picks the date.</span></span></div>
+    <div class="day"><b>Mid-month</b><span>A live Q&amp;A, once Premium has members asking questions. <span class="why">Respond. Their questions are the agenda.</span></span></div>
+    <div class="day"><b>End of month</b><span>The wins thread, and a voice note to celebrate them. <span class="why">2 line. Their recognition calls the next women in.</span></span></div>
+    <div class="day"><b>Every other week</b><span>Our strategy call, if we're building together. Voxer whenever ideas land. <span class="why">Open Head. Ideas get somewhere to go, so they stop spinning.</span></span></div>
+    <div class="day"><b>Your low days</b><span>Rest. Music. Ocean. Nothing scheduled. <span class="why">You're deeply cyclical. Rest is part of the plan, not a break from it.</span></span></div>
+  </div>
+
+  <div class="note"><p><b>The gut check.</b> This has to feel like a fuck yes. If any part starts feeling like "I have to because Aurailia said so," tell me. Something gets cut or handed off.</p></div>
+</section>
+
+<!-- WORK -->
+<section class="panel" id="work" role="tabpanel">
+  <h2>How we can build this together</h2>
+  <p class="intro">You asked about this at the end of our call. There are two ways. Read them, then ask your gut. Listen for the sound before your mind starts explaining.</p>
+
+  <div class="hd"><span class="lens">Through your design</span><p>You can do all of this yourself. You're a Manifesting Generator. But you told me what you really want is support, accountability and someone to riff with, and that you're at the point where you need to do something radical. Your sacral energy is best spent on your voice, your music and your women, not on Skool settings.</p></div>
+
+  <div class="tiers two">
+    <div class="tier now">
+      <h3>Option 1: I build Homecoming with you</h3>
+      <div class="state">Done for you, with 3 months of support</div>
+      <div class="price">$1,555 USD</div>
+      <p class="small" style="margin:-4px 0 14px">$1,777, with a $222 thank-you for being Monika's friend.</p>
+      <p style="margin-bottom:8px"><b>You bring the content. I build the home around it.</b></p>
+      <ul class="plain">
+        <li>I build your Skool community: classrooms, pages, About page and banner</li>
+        <li>I bring in your masterclass, course, Sound Medicine Library and music</li>
+        <li>I set up your tiers, pricing, events and onboarding</li>
+        <li>I create the images for every classroom and page</li>
+        <li>I build custom tools for your members, like this plan</li>
+        <li>3 months of support: a strategy call every two weeks</li>
+        <li>Daily Voxer, so you can voice-note me whenever an idea lands</li>
+        <li>Anything new you record in those 3 months, I add for you</li>
+        <li>Access to Embody Wealth the whole time</li>
+      </ul>
+      <p style="font-size:15px;margin:0"><b>Your part</b> is the content: recording the challenge, your videos and your lives. Once you've recorded it, I get it inside.</p>
+      <div class="coupon">
+        <div><span class="code">ali222</span><small>Enter at checkout for your $222 credit</small></div>
+        <button type="button" class="copy" id="copyCode">Copy</button>
+      </div>
+      <div class="btns">
+        <a class="btn primary" href="https://www.aurailia.com/checkout?checkoutId=749ba488-cd25-4e20-a8b0-f195aae793d9&amp;disableContinueShopping=true" target="_blank" rel="noopener">Pay in full</a>
+      </div>
+      <p style="font-size:15px;margin:14px 0 0"><b>Prefer to spread it out?</b> I can do a 3-month payment plan at $525 a month, or a 6-month plan at $275 a month. Just reply and I'll send you the link.</p>
+    </div>
+
+    <div class="tier">
+      <h3>Option 2: VIP</h3>
+      <div class="state">You build it, I guide you</div>
+      <div class="price">$147 a month</div>
+      <p class="small" style="margin:-4px 0 14px">Special for the next 72 hours. Regularly $222 a month.</p>
+      <ul class="plain">
+        <li>A 60-minute strategy call each month</li>
+        <li>Daily Voxer for the questions that come up</li>
+        <li>A custom tool built for you to use inside your community</li>
+        <li>Everything in Embody Wealth Premium: monthly lives, group coaching, Human Design for business, and the toolbox of ready-made offers you can rebrand</li>
+      </ul>
+      <p style="font-size:15px;margin:0">For you if you want to build it yourself, with me in your corner.</p>
+      <div class="btns">
+        <a class="btn ghost" href="https://www.skool.com/embody-wealth/plans" target="_blank" rel="noopener">Join VIP</a>
+      </div>
+    </div>
+  </div>
+
+  <h3>My honest take</h3>
+  <p>From everything you shared, the community is the right move, and Option 1 gets it open without it eating the energy you've worked so hard to protect. You record and riff, I build. But if your gut says VIP, trust that sound. Either way, I'm with you.</p>
+
+  <div class="note"><p><b>Ready?</b> Choose the one that got the yes and check out above. Use <b>ali222</b> for the build. As soon as you're in, I'll reach out and we'll book our kickoff. Questions first? Just reply to my email, or send me a voice note.</p></div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">
+    <span>Built for Ali Skiba by Aurailia · October 2026 to March 2027</span>
+    <button class="theme" id="theme" type="button">Switch light or dark</button>
+  </div>
+</footer>
+</div>
+
+<script>
+(function(){
+  var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  var body=document.body,menuBtn=document.getElementById('menuBtn'),topbar=document.querySelector('.topbar');
+  function setMenu(open){body.classList.toggle('menu-open',open);menuBtn.setAttribute('aria-expanded',open?'true':'false')}
+  menuBtn.addEventListener('click',function(){setMenu(!body.classList.contains('menu-open'))});
+  document.getElementById('closeBtn').addEventListener('click',function(){setMenu(false)});
+  document.getElementById('scrim').addEventListener('click',function(){setMenu(false)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false)});
+  function show(id,scroll){
+    tabs.forEach(function(t){var on=t.dataset.p===id;t.setAttribute('aria-selected',on?'true':'false');if(on)document.getElementById('currentLabel').textContent=t.textContent});
+    [].forEach.call(document.querySelectorAll('.panel'),function(p){p.classList.toggle('on',p.id===id)});
+    store.set('ali_tab',id);
+    if(scroll){
+      var tb=topbar.offsetParent!==null?topbar.offsetHeight:0;
+      document.documentElement.style.setProperty('--navh',tb+'px');
+      var h=document.querySelector('#'+id+' > h2'); if(h)h.scrollIntoView({block:'start'});
+    }
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){setMenu(false);setTimeout(function(){show(t.dataset.p,true)},10)})});
+  var hash=(location.hash||'').slice(1);
+  var saved=(hash&&document.getElementById(hash)&&document.getElementById(hash).classList.contains('panel'))?hash:store.get('ali_tab');
+  if(saved&&document.getElementById(saved))show(saved,false);
+
+  var checks=[].slice.call(document.querySelectorAll('.check input'));
+  var state={};try{state=JSON.parse(store.get('ali_checks')||'{}')}catch(e){state={}}
+  function refresh(){
+    checks.forEach(function(c){c.closest('.check').classList.toggle('done',c.checked)});
+    [].forEach.call(document.querySelectorAll('.phase'),function(ph){
+      var cs=ph.querySelectorAll('.check input'),d=0;[].forEach.call(cs,function(c){if(c.checked)d++});
+      ph.querySelector('.prog').textContent=d+' of '+cs.length+' done';
+    });
+  }
+  checks.forEach(function(c){c.checked=!!state[c.dataset.id];c.addEventListener('change',function(){state[c.dataset.id]=c.checked;store.set('ali_checks',JSON.stringify(state));refresh()})});
+  refresh();
+
+  var root=document.documentElement,th=store.get('ali_theme');if(th)root.setAttribute('data-theme',th);
+  document.getElementById('theme').onclick=function(){
+    var dark=root.getAttribute('data-theme')?root.getAttribute('data-theme')==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+    var next=dark?'light':'dark';root.setAttribute('data-theme',next);store.set('ali_theme',next);
+  };
+
+  var cb=document.getElementById('copyCode');
+  cb.addEventListener('click',function(){
+    function done(){cb.textContent='Copied';setTimeout(function(){cb.textContent='Copy'},1800)}
+    try{navigator.clipboard.writeText('ali222').then(done,function(){cb.textContent='ali222'})}catch(e){cb.textContent='ali222'}
+  });
+})();
+</script>
